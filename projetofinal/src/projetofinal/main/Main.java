@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import projetofinal.model.Carros;
-import projetofinal.model.Clientes;
-import projetofinal.model.ClientesBuilder;
-import projetofinal.model.HDPrototype;
-import projetofinal.model.MotosPrototype;
+import projetofinal.model.carro.Carros;
+import projetofinal.model.cliente.Clientes;
+import projetofinal.model.cliente.ClientesBuilder;
+import projetofinal.model.motos.HDPrototype;
+import projetofinal.model.motos.MotosPrototype;
+import projetofinal.model.vendedor.VendedorFactory;
+import projetofinal.model.vendedor.VendedorFactoryImpl;
+import projetofinal.model.vendedor.Vendedores;
 
 public class Main {
 	
@@ -16,6 +19,13 @@ public class Main {
 		criarCarros();
 		criarClientes();
 		criarMotos();
+		criarVendedor();
+	}
+	
+	public static void criarVendedor() {
+		VendedorFactory vendedorFabrica = new VendedorFactoryImpl();
+		Vendedores vendedores = vendedorFabrica.criarVendedor();
+		vendedores.exibirInfoVendedor();
 	}
 	
 	

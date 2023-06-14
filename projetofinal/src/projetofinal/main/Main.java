@@ -28,7 +28,7 @@ public class Main {
 		vendedores.exibirInfoVendedor();
 	}
 	
-	
+	//Iterator
 	public static void criarCarros() {
 		List<Carros> carros = new ArrayList<>();
 		carros.add(Carros.criarCarro("Honda", "Civic EX", 27.999, 2001));

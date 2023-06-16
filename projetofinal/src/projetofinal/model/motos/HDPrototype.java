@@ -6,7 +6,7 @@ public class HDPrototype extends MotosPrototype{
 		this.ano = hdPrototype.getAno();
 		this.marca = hdPrototype.getMarca();
 		this.modelo = hdPrototype.getModelo();
-		this.preço = hdPrototype.getPreço();
+		this.preÃ§o = hdPrototype.getpreÃ§o();
 	}
 	
 	
@@ -21,7 +21,7 @@ public class HDPrototype extends MotosPrototype{
 
 	@Override
 	public String infos() {
-		return "Marca: " + getMarca() + "\nModelo: " + getModelo() + "\nAno: " + getAno() + "\nPreço: " + getPreço();
+		return "Marca: " + getMarca() + "\nModelo: " + getModelo() + "\nAno: " + getAno() + "\npreÃ§o: " + getpreÃ§o();
 	} 
 
 	@Override

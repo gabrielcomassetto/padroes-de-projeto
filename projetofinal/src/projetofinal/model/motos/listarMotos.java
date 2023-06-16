@@ -12,28 +12,19 @@ import projetofinal.conexao.ConnectionFactory;
 
 public class listarMotos {
 	
-public static void listarMotosDoBanco() {
+public void listarMotosDoBanco() {
 		
 		try (Connection conn = ConnectionFactory.getConnection()) {
             String query = "SELECT * FROM tb_motos";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-
-            ArrayList<MotosPrototype> motos = new ArrayList<>();
+            
             while (rs.next()) {
-                String marca = rs.getString("marca");
-                String modelo = rs.getString("modelo");
-                double preÁo = rs.getDouble("preÁo");
-                int ano = rs.getInt("ano");
-
-                motos.add(marca, modelo, preÁo, ano);
-            }
-
-            Iterator<MotosPrototype> iterator = motos.iterator();
-
-            while (iterator.hasNext()) {
-                MotosPrototype moto = iterator.next();
-                System.out.println("Marca: " + moto.getMarca() + ", Modelo: " + moto.getModelo());
+                String marca = rs.getString("Marca");
+                String modelo = rs.getString("Modelo");
+                String pre√ßo = rs.getString("Pre√ßo");
+                int ano = rs.getInt("Ano");
+                System.out.println("Marca: " + marca + "\nModelo: " + modelo + "\nPre√ßo: " + pre√ßo + "\nAno: " + ano);
             }
 
         } catch (SQLException e) {

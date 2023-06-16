@@ -3,7 +3,7 @@ package projetofinal.model.motos;
 //Prototype
 public abstract class MotosPrototype{
 	
-	protected double preço;
+	protected double preÃ§o;
 	protected String marca;
 	protected String modelo;
 	protected int ano;
@@ -38,12 +38,12 @@ public abstract class MotosPrototype{
 		this.ano = ano;
 	}
 
-	public double getPreço() {
-		return preço;
+	public double getpreÃ§o() {
+		return preÃ§o;
 	}
 	
-	public void setPreço(double Preço) {
-		this.preço = Preço;
+	public void setpreÃ§o(double preÃ§o) {
+		this.preÃ§o = preÃ§o;
 	}
 
 }

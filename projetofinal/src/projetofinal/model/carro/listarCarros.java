@@ -11,8 +11,8 @@ import projetofinal.conexao.ConnectionFactory;
 
 public class listarCarros {
 	
-	public static void listarCarrosDoBanco() {
-		
+	public void listarCarrosDoBanco() {
+	
 		try (Connection conn = ConnectionFactory.getConnection()) {
             String query = "SELECT * FROM tb_carros";
             Statement stmt = conn.createStatement();
@@ -22,17 +22,18 @@ public class listarCarros {
             while (rs.next()) {
                 String marca = rs.getString("marca");
                 String modelo = rs.getString("modelo");
-                String preÁo = rs.getString("preÁo");
+                String pre√ßo = rs.getString("pre√ßo");
                 int ano = rs.getInt("ano");
 
-                carros.add(new Carros(marca, modelo, preÁo, ano));
+                carros.add(new Carros(marca, modelo, pre√ßo, ano));
             }
 
             Iterator<Carros> iterator = carros.iterator();
 
             while (iterator.hasNext()) {
                 Carros carro = iterator.next();
-                System.out.println("Marca: " + carro.getMarca() + ", Modelo: " + carro.getModelo());
+                System.out.println("Marca: " + carro.getMarca() + "\nModelo: " + carro.getModelo() +
+                		"\nPre√ßo: " + carro.getpre√ßo() + "\nAno: " + carro.getAno() + "\n");
             }
 
         } catch (SQLException e) {

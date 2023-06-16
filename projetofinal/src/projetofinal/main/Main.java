@@ -1,73 +1,224 @@
 package projetofinal.main;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.sql.SQLException;
+import java.util.Scanner;
 
-import projetofinal.model.carro.Carros;
-import projetofinal.model.cliente.Clientes;
-import projetofinal.model.cliente.ClientesBuilder;
-import projetofinal.model.motos.HDPrototype;
-import projetofinal.model.motos.MotosPrototype;
-import projetofinal.model.vendedor.VendedorFactory;
-import projetofinal.model.vendedor.VendedorFactoryImpl;
-import projetofinal.model.vendedor.Vendedores;
+import projetofinal.conexao.CriarTabela;
+import projetofinal.model.carro.ExcluirCarro;
+import projetofinal.model.carro.ExcluirCarroPg;
+import projetofinal.model.carro.criarCarro;
+import projetofinal.model.carro.listarCarros;
+import projetofinal.model.cliente.CadastroCliente;
+import projetofinal.model.cliente.Comando;
+import projetofinal.model.cliente.ComandoCompraCarro;
+import projetofinal.model.cliente.CompraAVistaStrategy;
+import projetofinal.model.cliente.CompraParceladaStrategy;
+import projetofinal.model.cliente.ComprarMoto;
+import projetofinal.model.cliente.Invocador;
+import projetofinal.model.cliente.MotoCompraStrategy;
+import projetofinal.model.motos.criarNovaMoto;
+import projetofinal.model.motos.listarMotos;
+import projetofinal.model.vendedor.CriarVendedor;
 
 public class Main {
-	
-	public static void main(String[] args) {
-		criarCarros();
-		criarClientes();
-		criarMotos();
-		criarVendedor();
-	}
-	
-	public static void criarVendedor() {
-		VendedorFactory vendedorFabrica = new VendedorFactoryImpl();
-		Vendedores vendedores = vendedorFabrica.criarVendedor();
-		vendedores.exibirInfoVendedor();
-	}
-	
-	//Iterator
-	public static void criarCarros() {
-		List<Carros> carros = new ArrayList<>();
-		carros.add(Carros.criarCarro("Honda", "Civic EX", 27.999, 2001));
-		carros.add(Carros.criarCarro("BMW", "330I M", 105.000, 2016));
+	Scanner sc = new Scanner(System.in).useDelimiter(System.getProperty("line.separator"));
+	public static void main(String[] args) throws SQLException {
+		
+		CriarTabela ct = new CriarTabela();
+	//	ct.criaTabela();
+		
 
 		
-		Iterator<Carros> iterator = carros.iterator();
-		while(iterator.hasNext()) {
-			Carros carro = iterator.next();
-			System.out.println("Marca: " + carro.getMarca() +"\n" +
-					"Modelo: " + carro.getModelo() + "\n" +
-					"Preço: R$ " + carro.getPreço() + "\n" +
-					"Ano: " + carro.getAno());
-		}
-		
+		new Main().menu();
 	}
-	
-	public static void criarClientes() {
-		ClientesBuilder builder = new ClientesBuilder()
-                .addNome("João")
-                .addCpf("12346")
-                .addTelefone("123456789")
-                .addDataNascimento("30/03/1995");
-        
-        Clientes clientes = builder.get();
-        
-        System.out.println(clientes.toString());
-		
-    }
-	
-	public static void criarMotos() {
-		HDPrototype hd = new HDPrototype();
-		MotosPrototype hdNova = hd.clonar();
-		hdNova.setAno(1998);
-		hdNova.setMarca("Harley-Davidson");
-		hdNova.setModelo("Dyna FX Low");
-		hdNova.setPreço(63000);
-		
-		System.out.println(hdNova.infos());
-	}
+		private void menu() throws SQLException {
+			Main opc = new Main();
+			
+			int opÃ§ao = 0;
+			while(opÃ§ao != 9) {
+					System.out.println("----------------------------------");
+					System.out.println("Escolha uma opÃ§Ã£o: ");
+					System.out.println("1 - Sou adminsitrador. ");
+					System.out.println("2 - Sou cliente. ");
+					System.out.println("3 - Sou vendedor. ");
+					System.out.println("9 - Encerrar. ");
+					System.out.println("----------------------------------");
+					int opcao = sc.nextInt();
+					
+					if (opcao == 9) {
+						break;
+					}
+					switch (opcao) {
+					case 1:
+						opc.Adm();
+						break;
+					case 2:
+						opc.Cliente();
+						break;
+					case 3:
+						opc.Vendedor();
+						break;
+					default:
+					
+					}
+				}
+			}
+			
+			private void Adm(){
+				Main adm = new Main();
+				int opcao = 0;
+				while(opcao != 9){
+					System.out.println("1 - Para cadastrar vendedor");
+					System.out.println("2 - Para excluir carro");
+					System.out.println("9 - Para sair");
+					opcao = sc.nextInt();
+					
+					if(opcao == 9){
+						break;
+					}
+					switch(opcao){
+						case 1:
+						adm.criarVendedor();
+						break;
+						case 2:
+						adm.deletarCarro();
+						break;
+					default:
+					}
+				}
+			}
+			
 
-}
+			private void Cliente(){
+				Main opc = new Main();
+				int opcao = 0;
+				while(opcao != 9){
+					System.out.println("1 - Para comprar carro");
+					System.out.println("2 - Para comprar moto a vista");
+					System.out.println("3 - Para comprar moto parcelada");
+					System.out.println("4 - Para alugar carro");
+					System.out.println("5 - Para alugar moto");
+					System.out.println("9 - Para sair");
+					opcao = sc.nextInt();
+					
+					if(opcao == 9){
+						break;
+					}
+					
+					switch(opcao){
+						case 1:
+						opc.comprarCarro();
+						break;
+						case 2:
+						opc.compraMotoaVista();
+						break;
+						case 3:
+						opc.compraMotoParcelada();
+						break;
+						case 4:
+					//	opc.alugarMoto();
+					}
+					
+				}
+			}
+			
+			
+	
+			private void Vendedor() throws SQLException{
+				Main opc = new Main();
+				int opcao = 0;
+				while(opcao != 9){
+					System.out.println("1- Cadastrar um carro");
+					System.out.println("2- Para cadastrar um novo cliente");
+					System.out.println("3- Para cadastrar uma nova moto");
+					System.out.println("4- Para listar carros da loja");
+					System.out.println("5- Para listar motos da loja");
+					System.out.println("9 - Para sair");
+					opcao = sc.nextInt();
+					
+					if(opcao == 9){
+						break;
+					}
+				
+				
+					switch(opcao){
+					case 1:
+						opc.cadastrarCarro();
+						break;
+						case 2:
+						opc.cadastrarCliente();
+						break;
+						case 3:
+						opc.cadastrarMoto();
+						break;
+						case 4:
+						opc.listarCarros();
+						break;
+						case 5:
+						opc.listarMotos();
+						break;
+						default:
+					}	
+				}
+			}
+			
+			
+			void cadastrarCarro() throws SQLException {
+				criarCarro cc = new criarCarro();
+				cc.criarNovoCarro();
+			}
+			
+			void cadastrarMoto() {
+				criarNovaMoto cm = new criarNovaMoto();
+				cm.criarMoto();
+			}
+			
+			void cadastrarCliente() {
+				CadastroCliente ccli = new CadastroCliente();
+				ccli.novoCliente();
+			}
+			
+			void listarCarros() {
+				listarCarros lc = new listarCarros();
+				lc.listarCarrosDoBanco();
+					
+				}
+			
+			void listarMotos() {
+				listarMotos lm = new listarMotos();
+				lm.listarMotosDoBanco();
+			}
+			
+			void criarVendedor() {
+				CriarVendedor cv = new CriarVendedor();
+				cv.criarVendedor();
+			}
+			
+			void compraMotoaVista() {
+				MotoCompraStrategy compraAVista = new CompraAVistaStrategy();
+		        ComprarMoto moto1 = new ComprarMoto(compraAVista);
+		        moto1.comprarMoto();
+			}
+			
+			void compraMotoParcelada() {
+				MotoCompraStrategy compraParcelada = new CompraParceladaStrategy();
+		        ComprarMoto moto2 = new ComprarMoto(compraParcelada);
+		        moto2.comprarMoto();
+			}
+			
+			void deletarCarro() {
+				ExcluirCarro excluir = new ExcluirCarroPg();
+				excluir.excluirCarro();
+				
+			}
+			
+			void comprarCarro() {
+		        Comando compraCarro = new ComandoCompraCarro("Mustang");
+		        Invocador invocador = new Invocador();
+		        invocador.adicionarComando("compra", compraCarro);
+		        invocador.executarComando("compra");
+		        }
+		 }
+
+	
+	

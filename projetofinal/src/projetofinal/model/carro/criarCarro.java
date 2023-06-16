@@ -16,16 +16,9 @@ public class criarCarro {
 		
 	ArrayList<Carros> carros = new ArrayList<>();
 	
-	System.out.println("Digite a marca do carro: ");
-	carros.add(Carros.criarCarro(sc.next(), null, null, 0));
-	System.out.println("Digite o modelo do carro: ");
-	carros.add(Carros.criarCarro(null, sc.next(), null, 0));
-	System.out.println("Digite o preço do carro: ");
-	carros.add(Carros.criarCarro(null, null, sc.next(), 0));
-	System.out.println("Digite o ano do carro: ");
-	carros.add(Carros.criarCarro(null, null, null, sc.nextInt()));
-	
-	
+	System.out.println("Digite a marca do carro, modelo, preÃ§o e ano");
+	carros.add(Carros.criarCarro(sc.next(), sc.next(), sc.next(), sc.nextInt()));
+
 	adicionarCarrosAoBanco(carros);
 	
 	}
@@ -33,12 +26,12 @@ public class criarCarro {
 	public static void adicionarCarrosAoBanco(ArrayList<Carros> carros) throws SQLException {
 		try (Connection conn = ConnectionFactory.getConnection()) {
 			
-            String sql = "INSERT INTO tb_carros (marca, modelo, preço, ano) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO tb_carros (marca, modelo, preÃ§o, ano) VALUES (?, ?, ?, ?)";
             PreparedStatement pstm = conn.prepareStatement(sql);
             for (Carros carro : carros) {
                 pstm.setString(1, carro.getMarca());
                 pstm.setString(2, carro.getModelo());
-                pstm.setString(3, carro.getPreço());
+                pstm.setString(3, carro.getpreÃ§o());
                 pstm.setInt(4, carro.getAno());
                 pstm.executeUpdate();
             }

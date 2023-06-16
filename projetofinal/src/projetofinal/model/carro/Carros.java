@@ -5,14 +5,14 @@ public class Carros {
 	
 	private String marca;
 	private String modelo;
-	private String preço;
+	private String preÃ§o;
 	private int ano;
 	
 
-	public Carros(String marca, String modelo, String preço, int ano) {
+	public Carros(String marca, String modelo, String preÃ§o, int ano) {
 		this.marca = marca;
 		this.modelo = modelo;
-		this.preço = preço;
+		this.preÃ§o = preÃ§o;
 		this.ano = ano;
 	}
 
@@ -22,8 +22,8 @@ public class Carros {
 	}
 
 
-	public static Carros criarCarro(String marca, String modelo, String preço, int ano) {
-		return new Carros(marca,modelo,preço,ano);
+	public static Carros criarCarro(String marca, String modelo, String preÃ§o, int ano) {
+		return new Carros(marca,modelo,preÃ§o,ano);
 	}
 	
 
@@ -41,11 +41,11 @@ public class Carros {
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
-	public String getPreço() {
-		return preço;
+	public String getpreÃ§o() {
+		return preÃ§o;
 	}
-	public void setPreço(String preço) {
-		this.preço = preço;
+	public void setpreÃ§o(String preÃ§o) {
+		this.preÃ§o = preÃ§o;
 	}
 	public int getAno() {
 		return ano;

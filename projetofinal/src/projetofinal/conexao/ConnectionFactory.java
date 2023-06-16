@@ -9,21 +9,21 @@ public class ConnectionFactory {
 	
 	private static Connection conn = null;
 	  
-    static
-    {
-        String url = "jdbc:mysql:// localhost:3306/org";
-        String user = "root";
-        String pass = "";
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(url, user, pass);
-        }
-        catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    public static Connection getConnection()
-    {
-        return conn;
-    }
+  static
+  {
+      String url = "jdbc:postgresql://localhost:5432/postgres";
+      String user = "postgres";
+      String pass = "103301";
+      try {
+          Class.forName("org.postgresql.Driver");
+          conn = DriverManager.getConnection(url, user, pass);
+      }
+      catch (ClassNotFoundException | SQLException e) {
+          e.printStackTrace();
+      }
+  }
+  public static Connection getConnection()
+  {
+      return conn;
+  }
 }
